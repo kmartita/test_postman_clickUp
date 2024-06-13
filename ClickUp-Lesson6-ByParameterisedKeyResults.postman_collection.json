@@ -1,0 +1,1243 @@
+{
+	"info": {
+		"_postman_id": "5faa00b2-f454-4914-b27f-85dbc9093e1c",
+		"name": "ClickUp-Lesson6-ByParameterisedKeyResults",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "35403381"
+	},
+	"item": [
+		{
+			"name": "Goals",
+			"item": [
+				{
+					"name": "Create Goal",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verify status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var jsonData = pm.response.json();",
+									"const goal = jsonData.goal;",
+									"pm.test(\"Verify key 'id' result attribute after creation.\", function () {",
+									"    pm.expect(goal.id).to.not.be.null;",
+									"    pm.expect(goal.id).to.not.be.empty;",
+									"    pm.collectionVariables.set(\"goal_id\", goal.id);",
+									"});",
+									"pm.test(\"Verify key 'owners' result attribute after creation.\", function () {",
+									"    pm.expect(goal.owners).to.be.an('array').that.is.not.empty;",
+									"    goal.owners.forEach(function(owner) {",
+									"        pm.expect(owner.id).to.equal(parseInt(pm.collectionVariables.get(\"user_id\")));",
+									"        pm.expect(owner.username).to.eql(pm.collectionVariables.get(\"user_name\"));",
+									"    });",
+									"});",
+									"pm.test(\"Verify key 'name' result attribute after creation.\", function () {",
+									"    pm.expect(goal.name).to.eql(pm.collectionVariables.get(\"goal_name\"));",
+									"});",
+									"pm.test(\"Verify key 'team_id' result attribute after creation.\", function () {",
+									"    pm.expect(goal.team_id).to.eql(pm.collectionVariables.get(\"team_id\"));",
+									"});",
+									"pm.test(\"Verify key 'creator' result attribute after creation.\", function () {",
+									"    pm.expect(goal.creator).to.equal(parseInt(pm.collectionVariables.get(\"user_id\")));",
+									"});",
+									"pm.test(\"Verify key 'color' result attribute after creation.\", function () {",
+									"    pm.expect(goal.color).to.eql(pm.collectionVariables.get(\"color\"));",
+									"});",
+									"pm.test(\"Verify key 'due_date' result attribute after creation.\", function () {",
+									"    pm.expect(goal.due_date).to.eql(pm.collectionVariables.get(\"due_date\"));",
+									"});",
+									"pm.test(\"Verify key 'description' result attribute after creation.\", function () {",
+									"    pm.expect(goal.description).to.eql(pm.collectionVariables.get(\"goal_description\"));",
+									"});",
+									"pm.test(\"Verify key 'multiple_owners' result attribute after creation.\", function () {",
+									"    pm.expect(goal.multiple_owners).to.eql(pm.collectionVariables.get(\"is_multiple_owners\") == 'true');",
+									"});",
+									"pm.test(\"Verify key 'private' result attribute after creation.\", function () {",
+									"    pm.expect(goal.private).to.eql(false);",
+									"});",
+									"pm.test(\"Verify key 'archived' result attribute after creation.\", function () {",
+									"    pm.expect(goal.archived).to.eql(false);",
+									"});",
+									"pm.test(\"Verify key 'editor_token' result attribute after creation.\", function () {",
+									"    pm.expect(goal.editor_token).to.not.be.null;",
+									"    pm.expect(goal.editor_token).to.not.be.empty;",
+									"});",
+									"pm.test(\"Verify key 'folder_id' result attribute after creation.\", function () {",
+									"    pm.expect(goal.folder_id).to.be.null;",
+									"});",
+									"pm.test(\"Verify key 'folder_name' result attribute after creation.\", function () {",
+									"    pm.expect(goal.folder_name).to.be.null;",
+									"});",
+									"pm.test(\"Verify key 'members' result attribute after creation.\", function () {",
+									"    pm.expect(goal.members).to.be.an('array').that.is.empty;",
+									"});",
+									"pm.test(\"Verify key 'group_members' result attribute after creation.\", function () {",
+									"    pm.expect(goal.group_members).to.be.an('array').that.is.empty;",
+									"});",
+									"pm.test(\"Verify key 'key_results' result attribute after creation.\", function () {",
+									"    pm.expect(goal.key_results).to.be.an('array').that.is.empty;",
+									"});",
+									"pm.test(\"Verify key 'history' result attribute after creation.\", function () {",
+									"    pm.expect(goal.history).to.be.an('array').that.is.empty;",
+									"});",
+									"pm.test(\"Verify key 'key_result_count' result attribute after creation.\", function () {",
+									"    pm.expect(goal.key_result_count).to.eql(0);",
+									"});",
+									"pm.test(\"Verify key 'percent_completed' result attribute after creation.\", function () {",
+									"    pm.expect(goal.percent_completed).to.eql(0);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{goal_name}}\",\n    \"due_date\": {{due_date}},\n    \"description\": \"{{goal_description}}\",\n    \"multiple_owners\": {{is_multiple_owners}},\n    \"owners\": [\n        {{user_id}}\n    ],\n    \"color\": \"{{color}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/team/{{team_id}}/goal",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"team",
+								"{{team_id}}",
+								"goal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Goals",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const sendRequest = (requestOptions) => {",
+									"    return new Promise((resolve, reject) => {",
+									"        pm.sendRequest(requestOptions, (err, res) => {",
+									"            if (err) {",
+									"                reject(err);",
+									"            } else {",
+									"                resolve(res);",
+									"            }",
+									"        });",
+									"    });",
+									"};",
+									"",
+									"console.log(\"To get goals, there must be more than 1.\")",
+									"const baseUrl = pm.collectionVariables.get(\"base_url\");",
+									"const token = pm.collectionVariables.get(\"token\");",
+									"const teamId = pm.collectionVariables.get(\"team_id\")",
+									"",
+									"const postTeamRequestOptions = {",
+									"    url: `${baseUrl}/team/${teamId}/goal`,",
+									"    method: 'POST',",
+									"    header: {",
+									"        'Content-Type': 'application/json',",
+									"        'Authorization': token",
+									"    },",
+									"    body: {",
+									"        mode: 'raw',",
+									"        raw: `{",
+									"            \"name\": \"Test\",",
+									"            \"due_date\": ${pm.collectionVariables.get(\"due_date\")},",
+									"            \"description\": \"${pm.collectionVariables.get(\"goal_description\")}\",",
+									"            \"multiple_owners\": ${pm.collectionVariables.get(\"is_multiple_owners\")},",
+									"            \"owners\": [",
+									"                ${pm.collectionVariables.get(\"user_id\")}",
+									"            ],",
+									"            \"color\": \"${pm.collectionVariables.get(\"color\")}\"",
+									"        }`",
+									"    }",
+									"};",
+									"",
+									"sendRequest(postTeamRequestOptions)",
+									"    .then((response) => {",
+									"        console.log(response);",
+									"    })",
+									"    .catch((error) => {",
+									"        console.error(error);",
+									"    });",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verify status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Verify main attributes from goals arrays after fetching.\", function () {",
+									"    pm.expect(jsonData.goals).to.be.an('array').that.is.not.empty;",
+									"    ",
+									"    jsonData.goals.forEach(function(goal) {",
+									"        pm.expect(goal.id).to.not.null;",
+									"        pm.expect(goal.name).to.not.null;",
+									"        pm.expect(goal.team_id).to.eql(pm.collectionVariables.get(\"team_id\"));",
+									"    });",
+									"});",
+									"pm.test(\"Verify folders array.\", function () {",
+									"    pm.expect(jsonData.folders).to.be.an('array').that.is.empty",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/team/{{team_id}}/goal",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"team",
+								"{{team_id}}",
+								"goal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get 1 Goal",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verify status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Verify key 'id' result attribute after fetching.\", function () {",
+									"    pm.expect(jsonData.goal.id).to.eql(pm.collectionVariables.get(\"goal_id\"));",
+									"});",
+									"pm.test(\"Verify key 'name' result attribute after fetching.\", function () {",
+									"    pm.expect(jsonData.goal.name).to.eql(pm.collectionVariables.get(\"goal_name\"));",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/goal/{{goal_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"goal",
+								"{{goal_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Goal",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verify status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var goal = pm.response.json().goal;",
+									"pm.test(\"Verify key 'id' result attribute that have not changed after updating data.\", function () {",
+									"    pm.expect(goal.id).to.eql(pm.collectionVariables.get(\"goal_id\"));",
+									"});",
+									"pm.test(\"Verify key 'team_id' result attribute that have not changed after updating data.\", function () {",
+									"    pm.expect(goal.team_id).to.eql(pm.collectionVariables.get(\"team_id\"));",
+									"});",
+									"pm.test(\"Verify key 'creator' result attribute that have not changed after updating data.\", function () {",
+									"    pm.expect(goal.creator).to.equal(parseInt(pm.collectionVariables.get(\"user_id\")));",
+									"});",
+									"pm.test(\"Verify key 'color' result attribute that have not changed after updating data.\", function () {",
+									"    pm.expect(goal.color).to.eql(pm.collectionVariables.get(\"color\"));",
+									"});",
+									"pm.test(\"Verify key 'description' result attribute that have not changed after updating data.\", function () {",
+									"    pm.expect(goal.description).to.eql(pm.collectionVariables.get(\"goal_description\"));",
+									"});",
+									"pm.test(\"Verify key 'private' result attribute that have not changed after updating data.\", function () {",
+									"    pm.expect(goal.private).to.eql(false);",
+									"});",
+									"pm.test(\"Verify key 'archived' result attribute that have not changed after updating data.\", function () {",
+									"    pm.expect(goal.archived).to.eql(false);",
+									"});",
+									"pm.test(\"Verify key 'editor_token' result attribute that have not changed after updating data.\", function () {",
+									"    pm.expect(goal.editor_token).not.null;",
+									"    pm.expect(goal.editor_token).not.empty;",
+									"});",
+									"pm.test(\"Verify key 'folder_id' result attribute that have not changed after updating data.\", function () {",
+									"    pm.expect(goal.folder_id).to.null;",
+									"});",
+									"pm.test(\"Verify key 'folder_name' result attribute that have not changed after updating data.\", function () {",
+									"    pm.expect(goal.folder_name).to.null;",
+									"});",
+									"pm.test(\"Verify key 'members' result attribute that have not changed after updating data.\", function () {",
+									"    pm.expect(goal.members).to.be.an('array').that.is.empty;",
+									"});",
+									"pm.test(\"Verify key 'group_members' result attribute that have not changed after updating data.\", function () {",
+									"    pm.expect(goal.group_members).to.be.an('array').that.is.empty;",
+									"});",
+									"pm.test(\"Verify key 'key_results' result attribute that have not changed after updating data.\", function () {",
+									"    pm.expect(goal.key_results).to.be.an('array').that.is.empty;",
+									"});",
+									"pm.test(\"Verify key 'history' result attribute that have not changed after updating data.\", function () {",
+									"    pm.expect(goal.history).to.be.an('array').that.is.empty;",
+									"});",
+									"pm.test(\"Verify key 'key_result_count' result attribute that have not changed after updating data.\", function () {",
+									"    pm.expect(goal.key_result_count).to.eql(0);",
+									"});",
+									"pm.test(\"Verify key 'percent_completed' result attribute that have not changed after updating data.\", function () {",
+									"    pm.expect(goal.percent_completed).to.eql(0);",
+									"});",
+									"",
+									"pm.test(\"Verify key 'name' result attribute that have defenetly changed after updating data.\", function () {",
+									"    pm.expect(goal.name).to.not.eql(pm.collectionVariables.get(\"goal_name\"));",
+									"    pm.expect(goal.name).to.contains(\"Updated\");",
+									"});",
+									"pm.test(\"Verify key 'due_date' result attribute that have defenetly changed after updating data.\", function () {",
+									"    pm.expect(goal.due_date).to.not.eql(pm.collectionVariables.get(\"due_date\"));",
+									"    pm.expect(goal.due_date).to.not.null;",
+									"});",
+									"pm.test(\"Verify key 'multiple_owners' result attribute that have defenetly changed after updating data.\", function () {",
+									"    pm.expect(goal.multiple_owners).to.eql(pm.collectionVariables.get(\"is_multiple_owners\") != 'true');",
+									"});",
+									"pm.test(\"Verify key 'owners' result attribute that have defenetly changed after updating data.\", function () {",
+									"    pm.expect(goal.owners).to.be.an('array').that.is.empty;",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{goal_name}} Updated\",\n    \"due_date\": 1234567890,\n    \"description\": \"{{goal_description}}\",\n    \"multiple_owners\": false,\n    \"add_owners\": []\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/goal/{{goal_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"goal",
+								"{{goal_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Key Results",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verify status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var jsonData = pm.response.json();",
+									"const key_result = jsonData.key_result;",
+									"pm.test(\"Verify key 'id' result attribute after creation.\", function () {",
+									"    pm.expect(key_result.id).to.not.be.null;",
+									"    pm.expect(key_result.id).to.not.be.empty;",
+									"    pm.collectionVariables.set(\"key_result_id\", key_result.id);",
+									"});",
+									"pm.test(\"Verify key 'goal_id' result attribute after creation.\", function () {",
+									"    pm.expect(key_result.goal_id).to.eql(pm.collectionVariables.get(\"goal_id\"));",
+									"});",
+									"pm.test(\"Verify key 'name' result attribute after creation.\", function () {",
+									"    pm.expect(key_result.name).to.not.null;",
+									"    pm.expect(key_result.name).to.not.empty;",
+									"});",
+									"pm.test(\"Verify key 'creator' result attribute after creation.\", function () {",
+									"    pm.expect(key_result.creator).to.equal(parseInt(pm.collectionVariables.get(\"user_id\")));",
+									"});",
+									"pm.test(\"Verify key 'type' result attribute after creation.\", function () {",
+									"    pm.expect(key_result.type).to.equal(pm.collectionVariables.get(\"key_result_type\"));",
+									"});",
+									"pm.test(\"Verify key 'unit' result attribute after creation.\", function () {",
+									"    pm.expect(key_result.unit).to.equal(pm.collectionVariables.get(\"key_result_unit\"));",
+									"});",
+									"pm.test(\"Verify key 'workspace_id' result attribute after creation.\", function () {",
+									"    pm.expect(key_result.workspace_id).to.equal(pm.collectionVariables.get(\"team_id\"));",
+									"});",
+									"pm.test(\"Verify key 'completed' result attribute after creation.\", function () {",
+									"    pm.expect(key_result.completed).to.equal(false);",
+									"});",
+									"pm.test(\"Verify key 'task_ids' result attribute after creation.\", function () {",
+									"    pm.expect(key_result.task_ids).to.be.an('array');",
+									"    pm.expect(key_result.task_ids.length).to.equal(0);",
+									"});",
+									"pm.test(\"Verify key 'subcategory_ids' result attribute after creation.\", function () {",
+									"    pm.expect(key_result.subcategory_ids).to.be.an('array');",
+									"    pm.expect(key_result.subcategory_ids.length).to.equal(0);",
+									"});",
+									"pm.test(\"Verify key 'owners' result attribute after creation.\", function () {",
+									"    pm.expect(key_result.owners).to.be.an('array').that.is.not.empty;",
+									"    key_result.owners.forEach(function(owner) {",
+									"        pm.expect(owner.id).to.equal(parseInt(pm.collectionVariables.get(\"user_id\")));",
+									"        pm.expect(owner.username).to.eql(pm.collectionVariables.get(\"user_name\"));",
+									"    });",
+									"});",
+									"pm.test(\"Verify key 'last_action' result attribute after creation.\", function () {",
+									"    pm.expect(key_result.last_action).to.be.an('object');",
+									"    pm.expect(key_result.last_action.id).to.not.be.null;",
+									"    pm.expect(key_result.last_action.key_result_id).to.eql(key_result.id);",
+									"    pm.expect(key_result.last_action).to.not.empty;",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{$randomFullName}}\",\n    \"type\": \"{{key_result_type}}\",\n    \"owners\": [\n        {{user_id}}\n    ],\n    \"steps_start\": 0,\n    \"steps_end\": 10,\n    \"unit\": \"{{key_result_unit}}\",\n    \"task_ids\": [],\n    \"list_ids\": []\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/goal/{{goal_id}}/key_result",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"goal",
+								"{{goal_id}}",
+								"key_result"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Key Result",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verify status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var jsonData = pm.response.json();",
+									"const key_result = jsonData.key_result;",
+									"pm.test(\"Verify key 'id' result attribute that have not changed after updating data.\", function () {",
+									"    pm.expect(key_result.id).to.eql(pm.collectionVariables.get(\"key_result_id\"));",
+									"});",
+									"pm.test(\"Verify key 'goal_id' result attribute that have not changed after updating data.\", function () {",
+									"    pm.expect(key_result.goal_id).to.eql(pm.collectionVariables.get(\"goal_id\"));",
+									"});",
+									"pm.test(\"Verify key 'name' result attribute that have not changed after updating data.\", function () {",
+									"    pm.expect(key_result.name).to.not.null;",
+									"    pm.expect(key_result.name).to.not.empty;",
+									"});",
+									"pm.test(\"Verify key 'creator' result attribute that have not changed after updating data.\", function () {",
+									"    pm.expect(key_result.creator).to.equal(parseInt(pm.collectionVariables.get(\"user_id\")));",
+									"});",
+									"pm.test(\"Verify key 'type' result attribute that have not changed after updating data.\", function () {",
+									"    pm.expect(key_result.type).to.equal(pm.collectionVariables.get(\"key_result_type\"));",
+									"});",
+									"pm.test(\"Verify key 'unit' result attribute that have not changed after updating data.\", function () {",
+									"    pm.expect(key_result.unit).to.equal(pm.collectionVariables.get(\"key_result_unit\"));",
+									"});",
+									"pm.test(\"Verify key 'workspace_id' result attribute that have not changed after updating data.\", function () {",
+									"    pm.expect(key_result.workspace_id).to.equal(pm.collectionVariables.get(\"team_id\"));",
+									"});",
+									"pm.test(\"Verify key 'completed' result attribute that have not changed after updating data.\", function () {",
+									"    pm.expect(key_result.completed).to.equal(false);",
+									"});",
+									"pm.test(\"Verify key 'task_ids' result attribute that have not changed after updating data.\", function () {",
+									"    pm.expect(key_result.task_ids).to.be.an('array');",
+									"    pm.expect(key_result.task_ids.length).to.equal(0);",
+									"});",
+									"pm.test(\"Verify key 'subcategory_ids' result attribute that have not changed after updating data.\", function () {",
+									"    pm.expect(key_result.subcategory_ids).to.be.an('array');",
+									"    pm.expect(key_result.subcategory_ids.length).to.equal(0);",
+									"});",
+									"pm.test(\"Verify key 'owners' result attribute that have not changed after updating data.\", function () {",
+									"    pm.expect(key_result.owners).to.be.an('array').that.is.not.empty;",
+									"    key_result.owners.forEach(function(owner) {",
+									"        pm.expect(owner.id).to.equal(parseInt(pm.collectionVariables.get(\"user_id\")));",
+									"        pm.expect(owner.username).to.eql(pm.collectionVariables.get(\"user_name\"));",
+									"    });",
+									"});",
+									"pm.test(\"Verify key 'last_action' result attribute that have defenetly changed after updating data.\", function () {",
+									"    pm.expect(key_result.last_action).to.be.an('object');",
+									"    pm.expect(key_result.last_action.id).to.not.be.null;",
+									"    pm.expect(key_result.last_action.key_result_id).to.eql(key_result.id);",
+									"    pm.expect(key_result.last_action.note).to.eql(pm.collectionVariables.get(\"key_result.last_action.note\"));",
+									"    pm.expect(key_result.last_action.steps_taken_float).to.eql(5);",
+									"    pm.expect(key_result.last_action).to.not.empty;",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"steps_current\": 5,\n\"note\": \"{{key_result.last_action.note}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/key_result/{{key_result_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"key_result",
+								"{{key_result_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Key Result",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verify status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Verify jsonData is empty after deletion.\", function () {",
+									"    pm.expect(Object.keys(jsonData).length).to.eql(0);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/key_result/{{key_result_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"key_result",
+								"{{key_result_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Goal",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verify status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Verify jsonData is empty after deletion.\", function () {",
+									"    pm.expect(Object.keys(jsonData).length).to.eql(0);",
+									"});",
+									"",
+									"var baseUrl = pm.collectionVariables.get(\"base_url\");",
+									"var goalId = pm.collectionVariables.get(\"goal_id\");",
+									"",
+									"pm.sendRequest({",
+									"    url: `${baseUrl}/goal/${goalId}`,",
+									"    method: 'GET'",
+									"}, function (err, res) {",
+									"    pm.test(\"Verify the 'goal' record no longer exists.\", function () {",
+									"        pm.expect(res).to.have.status(400);",
+									"    });",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/goal/{{goal_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"goal",
+								"{{goal_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Key Results (parameterised)",
+			"item": [
+				{
+					"name": "Create parameterised Key Results",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verify status code is correct\", function () {",
+									"    var expectedStatus = 200;",
+									"    pm.response.to.have.status(expectedStatus);",
+									"});",
+									"",
+									"var jsonData = pm.response.json();",
+									"const key_result = jsonData.key_result;",
+									"",
+									"pm.test(\"Verify key 'id' result attribute after creation.\", function () {",
+									"    pm.expect(key_result.id).to.not.be.null;",
+									"    pm.expect(key_result.id).to.not.be.empty;",
+									"});",
+									"pm.test(\"Verify key 'name' result attribute after creation.\", function () {",
+									"    pm.expect(key_result.name).to.not.null;",
+									"    pm.expect(key_result.name).to.not.empty;",
+									"});",
+									"pm.test(\"Verify key 'type' result attribute after creation.\", function () {",
+									"    pm.expect(key_result.type).to.equal(pm.iterationData.get(\"type\"));",
+									"});",
+									"pm.test(\"Verify key 'unit' result attribute after creation.\", function () {",
+									"    const expectedUnit = pm.iterationData.get(\"unit\");",
+									"    if (expectedUnit === null) {",
+									"        pm.expect(key_result.unit).to.be.oneOf([null, \"tasks\"]);",
+									"    } else {",
+									"        pm.expect(key_result.unit).to.equal(expectedUnit);",
+									"    }",
+									"});",
+									"pm.test(\"Verify key 'task_ids' result attribute after creation.\", function () {",
+									"    pm.expect(key_result.task_ids).to.be.an('array');",
+									"    pm.expect(key_result.task_ids.length).to.equal(0);",
+									"});",
+									"pm.test(\"Verify key 'subcategory_ids' result attribute after creation.\", function () {",
+									"    pm.expect(key_result.subcategory_ids).to.be.an('array');",
+									"    pm.expect(key_result.subcategory_ids.length).to.equal(0);",
+									"});",
+									"pm.test(\"Verify key 'goal_id' result attribute after creation.\", function () {",
+									"    pm.expect(key_result.goal_id).to.eql(pm.collectionVariables.get(\"goal_param_id\"));",
+									"});",
+									"pm.test(\"Verify key 'creator' result attribute after creation.\", function () {",
+									"    pm.expect(key_result.creator).to.equal(parseInt(pm.collectionVariables.get(\"user_id\")));",
+									"});",
+									"pm.test(\"Verify key 'workspace_id' result attribute after creation.\", function () {",
+									"    pm.expect(key_result.workspace_id).to.equal(pm.collectionVariables.get(\"team_id\"));",
+									"});",
+									"pm.test(\"Verify key 'owners' result attribute after creation.\", function () {",
+									"    pm.expect(key_result.owners).to.be.an('array').that.is.not.empty;",
+									"    key_result.owners.forEach(function(owner) {",
+									"        pm.expect(owner.id).to.equal(parseInt(pm.collectionVariables.get(\"user_id\")));",
+									"        pm.expect(owner.username).to.eql(pm.collectionVariables.get(\"user_name\"));",
+									"    });",
+									"});",
+									"pm.test(\"Verify key 'last_action' result attribute after creation.\", function () {",
+									"    pm.expect(key_result.last_action).to.be.an('object');",
+									"    pm.expect(key_result.last_action.id).to.not.be.null;",
+									"    pm.expect(key_result.last_action.key_result_id).to.eql(key_result.id);",
+									"    pm.expect(key_result.last_action).to.not.empty;",
+									"});",
+									"",
+									"pm.test(\"Verify key 'completed' result attribute after creation.\", function () {",
+									"    if (key_result.type === \"automatic\") {",
+									"        pm.expect(key_result.completed).to.equal(true);",
+									"    } else {",
+									"        pm.expect(key_result.completed).to.equal(false);",
+									"    }",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const sendRequest = (requestOptions) => {",
+									"    return new Promise((resolve, reject) => {",
+									"        pm.sendRequest(requestOptions, (err, res) => {",
+									"            if (err) {",
+									"                reject(err);",
+									"            } else {",
+									"                resolve(res);",
+									"            }",
+									"        });",
+									"    });",
+									"};",
+									"",
+									"console.log(\"To create parameterised 'key results', there should be at least 1 goal for usage.\");",
+									"const baseUrl = pm.collectionVariables.get(\"base_url\");",
+									"const token = pm.collectionVariables.get(\"token\");",
+									"const teamId = pm.collectionVariables.get(\"team_id\");",
+									"",
+									"const postGoalRequestOptions = {",
+									"    url: `${baseUrl}/team/${teamId}/goal`,",
+									"    method: 'POST',",
+									"    header: {",
+									"        'Content-Type': 'application/json',",
+									"        'Authorization': token",
+									"    },",
+									"    body: {",
+									"        mode: 'raw',",
+									"        raw: JSON.stringify({",
+									"            \"name\": \"Parameterised\",",
+									"            \"due_date\": pm.collectionVariables.get(\"due_date\"),",
+									"            \"description\": pm.collectionVariables.get(\"goal_description\"),",
+									"            \"multiple_owners\": pm.collectionVariables.get(\"is_multiple_owners\"),",
+									"            \"owners\": [",
+									"                pm.collectionVariables.get(\"user_id\")",
+									"            ],",
+									"            \"color\": pm.collectionVariables.get(\"color\")",
+									"        })",
+									"    }",
+									"};",
+									"",
+									"sendRequest(postGoalRequestOptions)",
+									"    .then((response) => {",
+									"        const responseBody = response.json();",
+									"",
+									"        if (responseBody != null) {",
+									"            pm.collectionVariables.set(\"goal_param_id\", responseBody.goal.id);",
+									"            console.log(\"Test goal id:\", responseBody.goal.id);",
+									"        } else {",
+									"            console.error(\"Response does not contain an 'id' field:\", responseBody);",
+									"        }",
+									"    })",
+									"    .catch((error) => {",
+									"        console.error(\"Error occurred:\", error);",
+									"    });",
+									"",
+									"const validTypes = [\"number\", \"boolean\", \"automatic\", \"currency\", \"percentage\"];",
+									"const currentData = pm.iterationData.toObject();",
+									"",
+									"if (!validTypes.includes(currentData.type)) {",
+									"    throw new Error(`Invalid type: ${currentData.type}. Valid types are: ${validTypes.join(\", \")}`);",
+									"}",
+									"",
+									"pm.variables.set(\"name\", currentData.name);",
+									"pm.variables.set(\"type\", currentData.type);",
+									"pm.variables.set(\"owners\", JSON.stringify(currentData.owners));",
+									"pm.variables.set(\"steps_start\", currentData.steps_start);",
+									"pm.variables.set(\"steps_end\", currentData.steps_end);",
+									"pm.variables.set(\"unit\", currentData.unit);",
+									"pm.variables.set(\"task_ids\", JSON.stringify(currentData.task_ids));",
+									"pm.variables.set(\"list_ids\", JSON.stringify(currentData.list_ids));",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{name}}\",\n    \"type\": \"{{type}}\",\n    \"owners\": {{owners}},\n    \"steps_start\": {{steps_start}},\n    \"steps_end\": {{steps_end}},\n    \"unit\": \"{{unit}}\",\n    \"task_ids\": {{task_ids}},\n    \"list_ids\": {{list_ids}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/goal/{{goal_param_id}}/key_result",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"goal",
+								"{{goal_param_id}}",
+								"key_result"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "key",
+				"value": "Authorization",
+				"type": "string"
+			},
+			{
+				"key": "value",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"if (!pm.environment.has('executedBeforeTests')) {",
+					"    pm.environment.set('executedBeforeTests', true);",
+					"",
+					"    const sendRequest = (requestOptions) => {",
+					"        return new Promise((resolve, reject) => {",
+					"            pm.sendRequest(requestOptions, (err, res) => {",
+					"                if (err) {",
+					"                    reject(err);",
+					"                } else {",
+					"                    resolve(res);",
+					"                }",
+					"            });",
+					"        });",
+					"    };",
+					"",
+					"    const baseUrl = pm.collectionVariables.get(\"base_url\");",
+					"    const token = pm.collectionVariables.get(\"token\");",
+					"    const userName = pm.collectionVariables.get(\"user_name\");",
+					"",
+					"    const getTeamsRequestOptions = {",
+					"        url: `${baseUrl}/team`,",
+					"        method: 'GET',",
+					"        header: {",
+					"            'Content-Type': 'application/json',",
+					"            'Authorization': token",
+					"        }",
+					"    };",
+					"",
+					"    (async () => {",
+					"        try {",
+					"            const teamsResponse = await sendRequest(getTeamsRequestOptions);",
+					"            const teams = teamsResponse.json().teams;",
+					"",
+					"            let userId = null;",
+					"            let teamId = null;",
+					"",
+					"            teams.forEach(team => {",
+					"                team.members.forEach(member => {",
+					"                    if (member.user.username === userName) {",
+					"                        userId = member.user.id;",
+					"                        teamId = team.id;",
+					"                    }",
+					"                });",
+					"            });",
+					"",
+					"            pm.collectionVariables.set(\"team_id\", teamId);",
+					"            pm.collectionVariables.set(\"user_id\", userId);",
+					"            console.log('Team Id:', teamId);",
+					"            console.log('Owner Id:', userId);",
+					"",
+					"            console.log('Before execution, the click-up collection must not contain any goals.')",
+					"            const getGoalsRequestOptions = {",
+					"                url:  `${baseUrl}/team/${teamId}/goal`,",
+					"                method: 'GET',",
+					"                header: {",
+					"                    'Content-Type': 'application/json',",
+					"                    'Authorization': token",
+					"                }",
+					"            };",
+					"",
+					"            const response = await sendRequest(getGoalsRequestOptions);",
+					"            const goals = response.json().goals;",
+					"            console.log('Goals retrieved:', goals);",
+					"",
+					"            if (!goals || goals.length === 0) {",
+					"                console.log('No goals to delete.');",
+					"                return;",
+					"            }",
+					"",
+					"            for (let goal of goals) {",
+					"                const deleteRequestOptions = {",
+					"                    url: `${baseUrl}/goal/${goal.id}`,",
+					"                    method: 'DELETE',",
+					"                    header: {",
+					"                        'Content-Type': 'application/json',",
+					"                        'Authorization': token",
+					"                    }",
+					"                };",
+					"",
+					"                await sendRequest(deleteRequestOptions);",
+					"                console.log(`Goal ${goal.id} successfully deleted.`);",
+					"            }",
+					"        } catch (error) {",
+					"            console.error('Error:', error);",
+					"        }",
+					"    })();",
+					"}",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": "pk_74473614_GK9TWN8N5PK2GCAB9T3QF62NS1MQ2467"
+		},
+		{
+			"key": "base_url",
+			"value": "https://api.clickup.com/api/v2",
+			"type": "string"
+		},
+		{
+			"key": "team_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "user_id",
+			"value": ""
+		},
+		{
+			"key": "user_name",
+			"value": "Marta Kravchuk",
+			"type": "string"
+		},
+		{
+			"key": "goal_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "goal_name",
+			"value": "Goal Name",
+			"type": "string"
+		},
+		{
+			"key": "goal_description",
+			"value": "Goal Description",
+			"type": "string"
+		},
+		{
+			"key": "due_date",
+			"value": "1718197185677",
+			"type": "string"
+		},
+		{
+			"key": "is_multiple_owners",
+			"value": "true",
+			"type": "string"
+		},
+		{
+			"key": "color",
+			"value": "#32a852",
+			"type": "string"
+		},
+		{
+			"key": "key_result_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "key_result_type",
+			"value": "number",
+			"type": "string"
+		},
+		{
+			"key": "key_result_unit",
+			"value": "km",
+			"type": "string"
+		},
+		{
+			"key": "key_result.last_action.note",
+			"value": "Target achieved",
+			"type": "string"
+		},
+		{
+			"key": "goal_param_id",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

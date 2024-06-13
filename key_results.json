@@ -1,0 +1,66 @@
+[
+  {
+    "name": "Number",
+    "type": "number",
+    "owners": [
+      74473614
+    ],
+    "steps_start": 0,
+    "steps_end": 10,
+    "unit": "km",
+    "task_ids": [
+      
+    ],
+    "list_ids": [
+      
+    ]
+  },
+  {
+    "name": "Boolean",
+    "type": "boolean",
+    "owners": [
+      74473614
+    ],
+    "steps_start": null,
+    "steps_end": null,
+    "unit": null,
+    "task_ids": [
+      
+    ],
+    "list_ids": [
+      
+    ]
+  },
+  {
+    "name": "Currency",
+    "type": "currency",
+    "owners": [
+      74473614
+    ],
+    "steps_start": 0,
+    "steps_end": 5000,
+    "unit": "USD",
+    "task_ids": [
+      
+    ],
+    "list_ids": [
+      
+    ]
+  },
+  {
+    "name": "Percentage",
+    "type": "percentage",
+    "owners": [
+      74473614
+    ],
+    "steps_start": 0,
+    "steps_end": 100,
+    "unit": "%",
+    "task_ids": [
+      
+    ],
+    "list_ids": [
+      
+    ]
+  }
+]

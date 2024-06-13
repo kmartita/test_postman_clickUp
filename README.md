@@ -1,4 +1,4 @@
-# ClickUp-Lesson6-ByParameterisedKeyResults
+# ClickUp-Goals
 
 ## Overview
 
@@ -13,7 +13,7 @@ This repository contains a parameterized collection of tests for ClickUp's Key R
    The values for `teamId` and `userId` are dynamically retrieved based on the `userName`. This ensures that the tests are always executed with the most up-to-date and relevant user information.
 
 4. **Goals Folder**
-   The `Goals` folder contains tests for all endpoints described in the API requirements. These tests ensure that all functionalities related to goals are thoroughly tested.
+   The `Goals` folder contains tests for all endpoints described in the [API requirements](https://clickup.com/api/clickupreference/operation/GetGoals/). These tests ensure that all functionalities related to goals are thoroughly tested.
 
 6. **Key Results (Parameterized) Folder**
    The `Key Results (Parameterized)` folder contains a single, parameterized test for the POST endpoint. This test is executed using a data-driven approach with a JSON file, allowing for comprehensive testing across multiple data sets.

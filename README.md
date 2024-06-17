@@ -2,7 +2,7 @@
 
 ## Overview
 
-This repository contains a parameterized collection of tests for ClickUp's Key Results endpoint. The collection is designed to be dynamic and data-driven, ensuring efficient and comprehensive testing of various API endpoints as specified in the API requirements.
+This repository contains a parameterized Postman collection of tests for ClickUp's Key Results endpoint. The collection is designed to be dynamic and data-driven, ensuring efficient and comprehensive testing of various API endpoints as specified in the API requirements.
 
 ## Steps
 
